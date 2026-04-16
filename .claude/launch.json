@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Express API Server",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": [".claude/start-server.sh"],
+      "port": 3000,
+      "autoPort": false
+    },
+    {
+      "name": "Vite Client",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": [".claude/start-client.sh"],
+      "port": 5173
+    },
+    {
+      "name": "Full Stack (both)",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": [".claude/start-dev.sh"],
+      "port": 5173
+    }
+  ]
+}
