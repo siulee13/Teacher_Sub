@@ -1,12 +1,15 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "./router.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors());
 app.use(express.json());
 
 app.use(
@@ -18,6 +21,15 @@ app.use(
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
+});
+
+// Serve static frontend files
+const clientDist = path.join(__dirname, "../client");
+app.use(express.static(clientDist));
+
+// SPA fallback - return index.html for all unmatched routes
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(clientDist, "index.html"));
 });
 
 app.listen(PORT, () => {
