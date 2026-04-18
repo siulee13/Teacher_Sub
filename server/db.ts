@@ -1,9 +1,11 @@
 import Database, { type Database as DatabaseType } from "better-sqlite3";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.join(__dirname, "..", "data");
+fs.mkdirSync(dataDir, { recursive: true });
 
 // Timetable DB (writable for admin edits)
 export const timetableDb: DatabaseType = new Database(
